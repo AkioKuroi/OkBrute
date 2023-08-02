@@ -96,8 +96,8 @@ const startBrute = async () => {
       default:
         chunkPosition++;
     }
-    console.log(`Получаем информацию о треке с айди ${i} :3`);
-    results.push(await getTrackInfo(i));
+    console.log(`Получаем информацию о треке с айди ${id} :3`);
+    results.push(await getTrackInfo(id));
     if (results.length >= 20) {
       writeResults(results);
       results = [];
