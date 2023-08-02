@@ -91,7 +91,7 @@ const startBrute = async () => {
       case 256:
         chunkPosition = 1;
         console.log("Новый чанк!");
-        results.push({ id: i, data: "\nНовый чанк.\n" });
+        results.push({ id: id, data: "\nНовый чанк.\n" });
         break;
       default:
         chunkPosition++;
