@@ -85,7 +85,7 @@ const startBrute = async () => {
   for (
     id;
     id < finishId;
-    chunkPosition === 256 ? (i += 3841) : (i += 4097)
+    chunkPosition === 256 ? (id += 3841) : (id += 4097)
   ) {
     switch (chunkPosition) {
       case 256:
