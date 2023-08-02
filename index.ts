@@ -7,7 +7,10 @@ import { Agent } from "http";
 import { existsSync } from "fs";
 import { unlinkSync } from "fs";
 import prompts from "prompts";
+require('dotenv').config({path: __dirname + '/.env'})
 
+const apiUrl: string = `https://wmf.ok.ru/track;js
+essionid=${process.env.SID}?id=`;
 // Init the agent for requests
 const httpAgent: Agent = new Agent({ keepAlive: true, maxSockets: 20 });
 
@@ -49,6 +52,7 @@ const getTrackInfo = async (trackId: number): Promise<ITrackInfo> => {
       }|${track.ensemble} - ${track.name} | Длительность = ${
         track.duration
       } с.\n`;
+      console.log(output)
       return { id: trackId, data: output };
     }
   } catch (error) {
@@ -107,18 +111,4 @@ const startBrute = async () => {
   fileStream.end();
 };
 
-// Just a function for init an api url
-(async () => {
-  const response = await prompts({
-    type: "text",
-    name: "sid",
-    message:
-      'Введите токен Вашей сессии в ОК.\nПолучить его можно по ссылке: https://ok.ru/web-api/music/conf (скопируйте значение ключа "sid")\nТокен сессии: ',
-  });
-  sessionId = response.sid;
-  console.log("Успешно.");
-
-  await startBrute();
-})();
-
-const apiUrl: string = `https://wmf.ok.ru/track;jsessionid=${sessionId}?id=`;
+startBrute();
