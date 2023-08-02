@@ -33,17 +33,17 @@ let sessionId: string = "";
 const getTrackInfo = async (trackId: number): Promise<ITrackInfo> => {
   try {
     // Parsing from API
-    const responseData: AxiosResponse = await axios
-      .get(`${apiUrl}${trackId}`, { httpAgent: httpAgent })
-      .then((response) => response.data);
+    const response: AxiosResponse = await axios
+      .get(`${apiUrl}${trackId}`, { httpAgent: httpAgent });
+    const data = response.data;
 
     // Check for errors
-    if (JSON.stringify(responseData).includes("error")) {
+    if (JSON.stringify(data).includes("error")) {
       console.log("Ошибка при получении информации о треке.");
       return { id: trackId, data: `Ошибка: ${trackId}\n` };
     } else {
       // If success
-      const { track }: any = responseData;
+      const { track }: any = data;
       const output: string = `${track.id}|${track.playRestricted ?? ""}|${
         track.releaseId ?? "none"
       }|${track.ensemble} - ${track.name} | Длительность = ${
