@@ -83,8 +83,8 @@ const startBrute = async () => {
   let results: ITrackInfo[] = [];
 
   for (
-    let i: number = 0;
-    i < finishId;
+    id;
+    id < finishId;
     chunkPosition === 256 ? (i += 3841) : (i += 4097)
   ) {
     switch (chunkPosition) {
