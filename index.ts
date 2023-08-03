@@ -23,10 +23,8 @@ interface ITrackInfo {
   data: string;
 }
 
-// Some check for existing of the file
-let fileName: string = "OK_Results.txt";
-
-existsSync(fileName) ? unlinkSync(fileName) : null;
+const codeName: string = Math.random().toString(36).substr(2, 8);
+let fileName: string = `OK_Results-${codeName}.txt`;
 
 const fileStream: WriteStream = createWriteStream(fileName, { flags: "a" });
 
