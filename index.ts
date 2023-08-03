@@ -7,7 +7,7 @@ import { Agent } from "http";
 import { existsSync } from "fs";
 import { unlinkSync } from "fs";
 import prompts from "prompts";
-require('dotenv').config({path: __dirname + '/.env'})
+require("dotenv").config({ path: __dirname + "/.env" });
 
 const apiUrl: string = `https://wmf.ok.ru/track;js
 essionid=${process.env.SID}?id=`;
@@ -23,7 +23,6 @@ interface ITrackInfo {
   data: string;
 }
 
-
 // Some check for existing of the file
 let fileName: string = "OK_Results.txt";
 
@@ -36,8 +35,9 @@ let sessionId: string = "";
 const getTrackInfo = async (trackId: number): Promise<ITrackInfo> => {
   try {
     // Parsing from API
-    const response: AxiosResponse = await axios
-      .get(`${apiUrl}${trackId}`, { httpAgent: httpAgent });
+    const response: AxiosResponse = await axios.get(`${apiUrl}${trackId}`, {
+      httpAgent: httpAgent,
+    });
     const data = response.data;
 
     // Check for errors
@@ -51,9 +51,13 @@ const getTrackInfo = async (trackId: number): Promise<ITrackInfo> => {
         track.releaseId ?? "none"
       }|${track.ensemble} - ${track.name} | Длительность = ${
         track.duration
-      } с.\n`;
-      console.log(output)
-      return { id: trackId, data: output };
+      } с.`;
+      if (output.includes("|true|none|")) {
+        console.log(output + " (Анрелиз)\n\n");
+        return { id: trackId, data: output + " (Анрелиз)\n" };
+      } else {
+        return { id: -1, data: "" };
+      }
     }
   } catch (error) {
     console.error(error);
@@ -86,11 +90,7 @@ const startBrute = async () => {
   let chunkPosition: number = 0;
   let results: ITrackInfo[] = [];
 
-  for (
-    id;
-    id < finishId;
-    chunkPosition === 256 ? (id += 3841) : (id += 4097)
-  ) {
+  for (id; id < finishId; chunkPosition === 256 ? (id += 3841) : (id += 4097)) {
     switch (chunkPosition) {
       case 256:
         chunkPosition = 1;
