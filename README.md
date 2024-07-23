@@ -1,7 +1,5 @@
-# Спасибо
-Спасибо за данный эксплойт таким разработчикам, как <b>freebeep</b> и <b>volkovcute</b>.
-Именно они первыми нашли данную уязвимость.
-Этот код является просто ремейком другого, с некоторыми фишками.
+# Thanks you lot
+Thanks for the node.js code to developers such as: <b>freebeep</b> and <b>volkovcute</b>.
 
 # Важно
-Отредактируйте файл .env и впишите туда <code>SID="Ваш айди сессии"</code>
+Edit the .env file and write there: <code>SID="Your session id here"</code>
